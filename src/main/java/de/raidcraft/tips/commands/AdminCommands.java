@@ -54,7 +54,7 @@ public class AdminCommands {
         config.set("desc", args.getJoinedStrings(2));
         config.set("enabled", args.hasFlag('e'));
         config.set("cooldown", args.getFlagInteger('c', 0));
-        config.set("displays", args.getFlag('d').split(","));
+        config.set("displays", args.getFlag('d', "chat").split(","));
         config.set("trigger.0.type", "player.move");
         Location location = ((Player) sender).getLocation();
         config.set("trigger.0.world", location.getWorld().getName());
