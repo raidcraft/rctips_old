@@ -1,8 +1,8 @@
 package de.raidcraft.tips;
 
 import de.raidcraft.api.BasePlugin;
+import de.raidcraft.tips.commands.BaseCommands;
 import de.raidcraft.tips.tables.TPlayerTip;
-import de.raidcraft.tips.tables.TTipTemplate;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -20,12 +20,20 @@ public class TipsPlugin extends BasePlugin {
     public void enable() {
 
         this.tipManager = new TipManager(this);
+        this.tipManager.load();
+        registerCommands(BaseCommands.class);
     }
 
     @Override
     public void disable() {
 
+        this.tipManager.unload();
+    }
 
+    @Override
+    public void reload() {
+
+        this.tipManager.reload();
     }
 
     @Override
@@ -33,7 +41,6 @@ public class TipsPlugin extends BasePlugin {
 
         List<Class<?>> tables = new ArrayList<>();
         tables.add(TPlayerTip.class);
-        tables.add(TTipTemplate.class);
         return tables;
     }
 }

@@ -6,3 +6,10 @@ author: Silthus
 website: http://www.raid-craft.de
 depend: [RaidCraft-API]
 database: true
+permissions:
+  rctips.admin:
+      description: Grants all admin tips permissions.
+      default: false
+      children:
+        rctips.create: true
+        rctips.reload: true

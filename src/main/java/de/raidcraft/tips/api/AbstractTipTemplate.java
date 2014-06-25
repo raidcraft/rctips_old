@@ -16,37 +16,42 @@ import java.util.Collection;
 @Data
 @EqualsAndHashCode(of = "identifier")
 @Setter(AccessLevel.PROTECTED)
-public abstract class AbstractTipTemplate implements TipTemplate {
+public abstract class AbstractTipTemplate<T> implements TipTemplate<T> {
 
     private final String identifier;
     private String name;
     private String description;
-    private boolean persistant;
-    private boolean repeating;
+    private boolean enabled;
     private long cooldown;
-    private final Collection<Requirement<?>> requirements;
-    private final Collection<TriggerFactory> trigger;
-    private Collection<TipDisplay> displays = new ArrayList<>();
+    private Collection<Requirement<?>> requirements = new ArrayList<>();
+    private Collection<TriggerFactory> trigger = new ArrayList<>();
+    private Collection<TipDisplay<T>> displays = new ArrayList<>();
 
     public AbstractTipTemplate(String identifier) {
 
         this.identifier = identifier;
-        this.requirements = loadRequirements();
-        this.trigger = loadTrigger();
-    }
-
-    protected abstract Collection<Requirement<?>> loadRequirements();
-
-    protected abstract Collection<TriggerFactory> loadTrigger();
-
-    @Override
-    public void processTrigger() {
-
-
     }
 
     @Override
-    public <T> Tip<T> display(T entity) {
+    public boolean isRepeating() {
+
+        return getCooldown() > 0;
+    }
+
+    @Override
+    public boolean processTrigger(T entity) {
+
+        if (!isEnabled()) return false;
+        if (getRequirements(getTriggerEntityType()).stream().allMatch(requirement -> requirement.test(entity))) {
+            // the tip display tracks if it already displayed so we dont need to wory
+            display(entity);
+        }
+        // never execute actions
+        return false;
+    }
+
+    @Override
+    public Tip<T> display(T entity) {
 
         Tip<T> tip = createTip(entity);
         tip.display();

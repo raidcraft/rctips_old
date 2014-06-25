@@ -13,12 +13,12 @@ import java.time.Instant;
 @Data
 public abstract class AbstractTip<T> implements Tip<T> {
 
-    private final TipTemplate template;
+    private final TipTemplate<T> template;
     private final T entity;
     @Nullable
     private Timestamp displayed;
 
-    public AbstractTip(@NonNull TipTemplate template, @NonNull T entity) {
+    public AbstractTip(@NonNull TipTemplate<T> template, @NonNull T entity) {
 
         this.template = template;
         this.entity = entity;
@@ -40,9 +40,14 @@ public abstract class AbstractTip<T> implements Tip<T> {
     @Override
     public void display() {
 
-        getTemplate().getDisplays().stream()
-                .filter(display -> display.matchesType(getEntity()))
-                .forEach(display -> display.display(getTemplate(), getEntity()));
+        if (getTemplate().isRepeating() && isOnCooldown()) {
+            return;
+        }
+        if (!getTemplate().isRepeating() && isDisplayed()) {
+            return;
+        }
+        getTemplate().getDisplays().forEach(display -> display.display(getTemplate(), getEntity()));
         setDisplayed(Timestamp.from(Instant.now()));
+        save();
     }
 }

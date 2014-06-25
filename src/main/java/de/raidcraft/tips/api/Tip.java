@@ -14,4 +14,6 @@ public interface Tip<T> {
     public boolean isOnCooldown();
 
     public void display();
+
+    public void save();
 }

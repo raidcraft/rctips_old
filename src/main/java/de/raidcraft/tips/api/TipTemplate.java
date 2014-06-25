@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * @author mdoering
  */
-public interface TipTemplate extends TriggerListener, RequirementHolder {
+public interface TipTemplate<T> extends TriggerListener<T>, RequirementHolder<T> {
 
     public String getIdentifier();
 
@@ -16,15 +16,15 @@ public interface TipTemplate extends TriggerListener, RequirementHolder {
 
     public String getDescription();
 
-    public boolean isPersistant();
+    public boolean isEnabled();
 
     public boolean isRepeating();
 
     public long getCooldown();
 
-    public <T> Collection<TipDisplay<T>> getDisplays();
+    public Collection<TipDisplay<T>> getDisplays();
 
-    public <T> Tip<T> display(T entity);
+    public Tip<T> display(T entity);
 
-    public <T> Tip<T> createTip(T entity);
+    public Tip<T> createTip(T entity);
 }
