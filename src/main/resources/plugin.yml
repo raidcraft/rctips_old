@@ -1,0 +1,8 @@
+main: de.raidcraft.tips.TipsPlugin
+name: RCTips
+version: ${project.version}#${build.number}
+description: Plugin that provides dynamic tips to users.
+author: Silthus
+website: http://www.raid-craft.de
+depend: [RaidCraft-API]
+database: true
