@@ -1,13 +1,19 @@
 package de.raidcraft.tips.displays;
 
-import de.raidcraft.tips.api.TipDisplay;
+import de.raidcraft.tips.api.AbstractTipDisplay;
 import de.raidcraft.tips.api.TipTemplate;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
  * @author mdoering
  */
-public class ChatDisplay implements TipDisplay<Player> {
+public class ChatDisplay extends AbstractTipDisplay<Player> {
+
+    public ChatDisplay() {
+
+        super("chat");
+    }
 
     @Override
     public Class<Player> getType() {
@@ -18,6 +24,7 @@ public class ChatDisplay implements TipDisplay<Player> {
     @Override
     public void display(TipTemplate tip, Player entity) {
 
-
+        entity.sendMessage(ChatColor.AQUA + "" + ChatColor.UNDERLINE + tip.getName() + ": "
+                + ChatColor.RESET + ChatColor.YELLOW + tip.getDescription());
     }
 }

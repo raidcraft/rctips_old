@@ -6,6 +6,7 @@ import de.raidcraft.api.config.SimpleConfiguration;
 import de.raidcraft.tips.api.Tip;
 import de.raidcraft.tips.api.TipDisplay;
 import de.raidcraft.tips.api.TipTemplate;
+import de.raidcraft.tips.displays.ChatDisplay;
 import de.raidcraft.tips.templates.PlayerTipTemplate;
 import de.raidcraft.tips.tips.PlayerTip;
 import de.raidcraft.util.CaseInsensitiveMap;
@@ -16,7 +17,6 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +30,7 @@ public final class TipManager implements Component {
 
     private final TipsPlugin plugin;
     private final Map<Class<?>, Constructor<? extends Tip<?>>> tipClasses = new HashMap<>();
-    private final Map<Class<?>, List<TipDisplay<?>>> tipDisplays = new HashMap<>();
+    private final Map<String, TipDisplay<?>> tipDisplays = new CaseInsensitiveMap<>();
     private final Map<String, TipTemplate<?>> loadedTemplates = new CaseInsensitiveMap<>();
 
     protected TipManager(TipsPlugin plugin) {
@@ -85,6 +85,7 @@ public final class TipManager implements Component {
     private void registerTypes() {
 
         registerTipType(Player.class, PlayerTip.class);
+        registerDisplayType(new ChatDisplay());
     }
 
     public <T> void registerTipType(Class<T> typeClass, Class<? extends Tip<T>> tipClass) {
@@ -119,21 +120,22 @@ public final class TipManager implements Component {
         return null;
     }
 
-    public <T> void registerDisplayType(Class<T> typeClass, TipDisplay<T> display) {
+    public <T> void registerDisplayType(@NonNull TipDisplay<T> display) {
 
-        if (!tipDisplays.containsKey(typeClass)) {
-            tipDisplays.put(typeClass, new ArrayList<>());
-        }
-        tipDisplays.get(typeClass).add(display);
+        tipDisplays.put(display.getName(), display);
+    }
+
+    public TipDisplay<?> getTipDisplay(@NonNull String name) {
+
+        return tipDisplays.getOrDefault(name, new ChatDisplay());
     }
 
     @SuppressWarnings("unchecked")
-    public <T> List<TipDisplay<T>> getTipDisplays(T entity) {
+    public <T> List<TipDisplay<T>> getTipDisplays(@NonNull T entity) {
 
-        Class<?> aClass = tipDisplays.keySet().stream().filter(typeClass -> typeClass.isAssignableFrom(entity.getClass())).findFirst().get();
-        if (aClass != null) {
-            return tipDisplays.get(aClass).stream().map(entry -> (TipDisplay<T>) entry).collect(Collectors.toList());
-        }
-        return new ArrayList<>();
+        return tipDisplays.values().stream()
+                .filter(display -> display.matchesType(entity))
+                .map(display -> (TipDisplay<T>) display)
+                .collect(Collectors.toList());
     }
 }

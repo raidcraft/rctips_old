@@ -5,9 +5,11 @@ package de.raidcraft.tips.api;
  */
 public interface TipDisplay<T> {
 
+    public String getName();
+
     public Class<T> getType();
 
-    public default boolean matchesType(T entity) {
+    public default boolean matchesType(Object entity) {
 
         return getType().isAssignableFrom(entity.getClass());
     }
