@@ -5,9 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
-import java.util.UUID;
 
 /**
  * @author mdoering
@@ -20,8 +20,8 @@ public class TPlayerTip {
 
     @Id
     private int id;
-    private UUID uuid;
-    private String player;
-    private Timestamp displayed;
+    @ManyToOne
+    private TTipPlayer player;
     private String template;
+    private Timestamp displayed;
 }

@@ -21,10 +21,20 @@ public class BaseCommands {
 
     @Command(
             aliases = {"rcta"},
+            desc = "Base admin command for tips"
+    )
+    @NestedCommand(AdminCommands.class)
+    public void tips(CommandContext args, CommandSender sender) throws CommandException {
+
+
+    }
+
+    @Command(
+            aliases = {"tips", "tip", "rct"},
             desc = "Base player command for tips"
     )
-    @NestedCommand(value = AdminCommands.class, executeBody = false)
-    public void tips(CommandContext args, CommandSender sender) throws CommandException {
+    @NestedCommand(PlayerCommands.class)
+    public void players(CommandContext args, CommandSender sender) {
 
 
     }

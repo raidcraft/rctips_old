@@ -9,6 +9,8 @@ public interface Tip<T> {
 
     public T getEntity();
 
+    public boolean isEntityEnabled();
+
     public boolean isDisplayed();
 
     public boolean isOnCooldown();

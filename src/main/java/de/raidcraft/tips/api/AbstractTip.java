@@ -17,6 +17,7 @@ public abstract class AbstractTip<T> implements Tip<T> {
     private final T entity;
     @Nullable
     private Timestamp displayed;
+    private boolean entityEnabled = true;
 
     public AbstractTip(@NonNull TipTemplate<T> template, @NonNull T entity) {
 
@@ -40,6 +41,9 @@ public abstract class AbstractTip<T> implements Tip<T> {
     @Override
     public void display() {
 
+        if (!isEntityEnabled()) {
+            return;
+        }
         if (getTemplate().isRepeating() && isOnCooldown()) {
             return;
         }

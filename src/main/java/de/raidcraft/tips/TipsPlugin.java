@@ -3,6 +3,7 @@ package de.raidcraft.tips;
 import de.raidcraft.api.BasePlugin;
 import de.raidcraft.tips.commands.BaseCommands;
 import de.raidcraft.tips.tables.TPlayerTip;
+import de.raidcraft.tips.tables.TTipPlayer;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class TipsPlugin extends BasePlugin {
 
         List<Class<?>> tables = new ArrayList<>();
         tables.add(TPlayerTip.class);
+        tables.add(TTipPlayer.class);
         return tables;
     }
 }

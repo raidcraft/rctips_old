@@ -1,5 +1,6 @@
 package de.raidcraft.tips;
 
+import com.avaje.ebean.EbeanServer;
 import de.raidcraft.RaidCraft;
 import de.raidcraft.api.Component;
 import de.raidcraft.api.config.SimpleConfiguration;
@@ -7,6 +8,7 @@ import de.raidcraft.tips.api.Tip;
 import de.raidcraft.tips.api.TipDisplay;
 import de.raidcraft.tips.api.TipTemplate;
 import de.raidcraft.tips.displays.ChatDisplay;
+import de.raidcraft.tips.tables.TTipPlayer;
 import de.raidcraft.tips.templates.PlayerTipTemplate;
 import de.raidcraft.tips.tips.PlayerTip;
 import de.raidcraft.util.CaseInsensitiveMap;
@@ -86,6 +88,21 @@ public final class TipManager implements Component {
 
         registerTipType(Player.class, PlayerTip.class);
         registerDisplayType(new ChatDisplay());
+    }
+
+    public TTipPlayer loadDatabasePlayer(Player entity) {
+
+        EbeanServer database = plugin.getDatabase();
+        TTipPlayer player = database.find(TTipPlayer.class).where()
+                .eq("uuid", entity.getUniqueId()).findUnique();
+        if (player == null) {
+            player = new TTipPlayer();
+            player.setUuid(entity.getUniqueId());
+            player.setPlayer(entity.getName());
+            player.setEnabled(true);
+            database.save(player);
+        }
+        return player;
     }
 
     public <T> void registerTipType(Class<T> typeClass, Class<? extends Tip<T>> tipClass) {
