@@ -3,8 +3,10 @@ package de.raidcraft.tips.tables;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class TTipPlayer {
     private UUID uuid;
     private String player;
     private boolean enabled = true;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "player_id")
     private List<TPlayerTip> tips = new ArrayList<>();
 }
