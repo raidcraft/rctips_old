@@ -30,9 +30,9 @@ public class PlayerCommands {
         player.setEnabled(!player.isEnabled());
         plugin.getDatabase().update(player);
         if (player.isEnabled()) {
-            plugin.getTranslationProvider().tr(sender, "tips.enabled", ChatColor.GREEN + "Dir werden nun Tips angezeigt.");
+            plugin.getTranslationProvider().msg(sender, "tips.enabled", ChatColor.GREEN + "Dir werden nun Tips angezeigt.");
         } else {
-            plugin.getTranslationProvider().tr(sender, "tips.disabled", ChatColor.RED + "Dir werden keine Tips mehr angezeigt.");
+            plugin.getTranslationProvider().msg(sender, "tips.disabled", ChatColor.RED + "Dir werden keine Tips mehr angezeigt.");
         }
     }
 }
