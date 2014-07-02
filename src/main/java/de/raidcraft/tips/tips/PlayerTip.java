@@ -38,12 +38,9 @@ public class PlayerTip extends AbstractTip<Player> {
         TTipPlayer player = RaidCraft.getComponent(TipManager.class).loadDatabasePlayer(getEntity());
         TPlayerTip tip = player.getTips().stream()
                 .filter(entry -> entry.getTemplate().equalsIgnoreCase(getTemplate().getIdentifier()))
-                .findFirst().get();
-        if (tip == null) {
-            tip = new TPlayerTip();
-            tip.setPlayer(player);
-            tip.setTemplate(getTemplate().getIdentifier());
-        }
+                .findFirst().orElseGet(TPlayerTip::new);
+        tip.setPlayer(player);
+        tip.setTemplate(getTemplate().getIdentifier());
         tip.setDisplayed(getDisplayed());
         database.save(tip);
     }
