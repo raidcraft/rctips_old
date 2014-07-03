@@ -40,7 +40,7 @@ public class AdminCommands {
             aliases = {"create"},
             desc = "Creates a tip at the given location.",
             min = 3,
-            flags = "ec:r:d:"
+            flags = "ec:r:d:m:"
     )
     @CommandPermissions("rctips.create")
     public void create(CommandContext args, CommandSender sender) throws CommandException {
@@ -49,6 +49,9 @@ public class AdminCommands {
             throw new CommandException("Must be executed as player");
         }
         File dir = new File(plugin.getDataFolder(), "tips");
+        if (args.hasFlag('m')) {
+            dir = new File(dir, args.getFlag('m').replace(".", "/"));
+        }
         SimpleConfiguration<TipsPlugin> config = new SimpleConfiguration<>(plugin, new File(dir, args.getString(0) + ".yml"));
         config.set("name", args.getString(1));
         config.set("desc", args.getJoinedStrings(2));
