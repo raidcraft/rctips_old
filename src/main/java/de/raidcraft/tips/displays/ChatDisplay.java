@@ -24,7 +24,7 @@ public class ChatDisplay extends AbstractTipDisplay<Player> {
     @Override
     public void display(TipTemplate tip, Player entity) {
 
-        entity.sendMessage(ChatColor.AQUA + "" + ChatColor.UNDERLINE + tip.getName() + ": "
+        entity.sendMessage(ChatColor.AQUA + tip.getName() + ": "
                 + ChatColor.RESET + ChatColor.YELLOW + tip.getDescription());
     }
 }
