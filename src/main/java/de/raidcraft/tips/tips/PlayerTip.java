@@ -2,6 +2,7 @@ package de.raidcraft.tips.tips;
 
 import com.avaje.ebean.EbeanServer;
 import de.raidcraft.RaidCraft;
+import de.raidcraft.api.action.requirement.Requirement;
 import de.raidcraft.tips.TipManager;
 import de.raidcraft.tips.TipsPlugin;
 import de.raidcraft.tips.api.AbstractTip;
@@ -43,5 +44,7 @@ public class PlayerTip extends AbstractTip<Player> {
         tip.setTemplate(getTemplate().getIdentifier());
         tip.setDisplayed(getDisplayed());
         database.save(tip);
+        // save all requirements
+        getTemplate().getRequirements().forEach(Requirement::save);
     }
 }
