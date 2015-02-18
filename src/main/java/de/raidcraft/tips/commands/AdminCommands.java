@@ -60,11 +60,11 @@ public class AdminCommands {
         config.set("displays", args.getFlag('d', "chat").split(","));
         config.set("trigger.0.type", "player.move");
         Location location = ((Player) sender).getLocation();
-        config.set("trigger.0.world", location.getWorld().getName());
-        config.set("trigger.0.x", location.getBlockX());
-        config.set("trigger.0.y", location.getBlockY());
-        config.set("trigger.0.z", location.getBlockZ());
-        config.set("trigger.0.radius", args.getFlagInteger('r', 0));
+        config.set("trigger.0.args.world", location.getWorld().getName());
+        config.set("trigger.0.args.x", location.getBlockX());
+        config.set("trigger.0.args.y", location.getBlockY());
+        config.set("trigger.0.args.z", location.getBlockZ());
+        config.set("trigger.0.args.radius", args.getFlagInteger('r', 0));
         config.set("meta.creator", sender.getName());
         config.set("meta.location.world", location.getWorld().getName());
         config.set("meta.location.x", location.getBlockX());
