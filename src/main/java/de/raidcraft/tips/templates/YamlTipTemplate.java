@@ -27,7 +27,7 @@ public abstract class YamlTipTemplate<T> extends AbstractTipTemplate<T> {
         setEnabled(config.getBoolean("enabled", true));
         setCooldown(TimeUtil.secondsToMillis(config.getDouble("cooldown", 0.0)));
         try {
-            setRequirements(RequirementFactory.getInstance().createRequirements(config.getConfigurationSection("requirements")));
+            setRequirements(RequirementFactory.getInstance().createRequirements(getListenerId(), config.getConfigurationSection("requirements")));
         } catch (RequirementException e) {
             RaidCraft.LOGGER.warning(e.getMessage() + " in " + getIdentifier());
         }
