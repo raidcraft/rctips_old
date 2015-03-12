@@ -5,6 +5,7 @@ import de.raidcraft.tips.commands.BaseCommands;
 import de.raidcraft.tips.tables.TPlayerTip;
 import de.raidcraft.tips.tables.TTipPlayer;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ public class TipsPlugin extends BasePlugin {
     public void enable() {
 
         this.tipManager = new TipManager(this);
-        this.tipManager.load();
         registerCommands(BaseCommands.class);
+        Bukkit.getScheduler().runTaskLater(this, this.tipManager::load, 1L);
     }
 
     @Override
