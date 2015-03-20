@@ -12,6 +12,7 @@ import de.raidcraft.tips.tables.TTipPlayer;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 /**
@@ -28,7 +29,7 @@ public class PlayerTip extends AbstractTip<Player> {
                 .filter(tip -> tip.getTemplate().equalsIgnoreCase(getTemplate().getIdentifier()))
                 .findFirst();
         if (first.isPresent()) {
-            setDisplayed(first.get().getDisplayed());
+            setDisplayed(first.get().getDisplayed().toInstant());
         }
     }
 
@@ -42,7 +43,7 @@ public class PlayerTip extends AbstractTip<Player> {
                 .findFirst().orElseGet(TPlayerTip::new);
         tip.setPlayer(player);
         tip.setTemplate(getTemplate().getIdentifier());
-        tip.setDisplayed(getDisplayed());
+        tip.setDisplayed(Timestamp.from(getDisplayed()));
         database.save(tip);
         // save all requirements
         getTemplate().getRequirements().forEach(Requirement::save);

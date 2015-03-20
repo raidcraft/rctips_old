@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.Instant;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.sql.Timestamp;
 
 /**
  * @author mdoering
@@ -23,5 +25,6 @@ public class TPlayerTip {
     @ManyToOne
     private TTipPlayer player;
     private String template;
-    private Instant displayed;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp displayed;
 }
