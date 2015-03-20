@@ -3,8 +3,6 @@ package de.raidcraft.tips.api;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.annotation.Nullable;
-import java.sql.Timestamp;
 import java.time.Instant;
 
 /**
@@ -15,8 +13,7 @@ public abstract class AbstractTip<T> implements Tip<T> {
 
     private final TipTemplate<T> template;
     private final T entity;
-    @Nullable
-    private Timestamp displayed;
+    private Instant displayed;
     private boolean entityEnabled = true;
 
     public AbstractTip(@NonNull TipTemplate<T> template, @NonNull T entity) {
@@ -35,7 +32,7 @@ public abstract class AbstractTip<T> implements Tip<T> {
     public boolean isOnCooldown() {
 
         return getTemplate().isRepeating() && getDisplayed() != null
-                && getDisplayed().before(Timestamp.from(Instant.now().minusMillis(getTemplate().getCooldown())));
+                && getDisplayed().plusMillis(getTemplate().getCooldown()).isAfter(Instant.now());
     }
 
     @Override
@@ -51,7 +48,7 @@ public abstract class AbstractTip<T> implements Tip<T> {
             return;
         }
         getTemplate().getDisplays().forEach(display -> display.display(getTemplate(), getEntity()));
-        setDisplayed(Timestamp.from(Instant.now()));
+        setDisplayed(Instant.now());
         save();
     }
 }
