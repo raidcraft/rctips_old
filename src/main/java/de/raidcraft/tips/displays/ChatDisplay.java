@@ -24,7 +24,15 @@ public class ChatDisplay extends AbstractTipDisplay<Player> {
     @Override
     public void display(TipTemplate tip, Player entity) {
 
-        entity.sendMessage(ChatColor.AQUA + tip.getName() + ": "
-                + ChatColor.RESET + ChatColor.YELLOW + tip.getDescription());
+        String[] lines = tip.getDescription().split("\\|");
+        if (lines.length > 0) {
+            entity.sendMessage(ChatColor.AQUA + tip.getName() + ": " + ChatColor.RESET + ChatColor.YELLOW + lines[0]);
+            if (lines.length > 1) {
+                for (int i = 1; i < lines.length; i++) {
+                    entity.sendRawMessage(ChatColor.YELLOW + lines[1]);
+                }
+            }
+        }
+
     }
 }
