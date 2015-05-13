@@ -35,7 +35,7 @@ public abstract class YamlTipTemplate<T> extends AbstractTipTemplate<T> {
         TipManager manager = RaidCraft.getComponent(TipManager.class);
         setDisplays(config.getStringList("displays").stream()
                 .map(manager::getTipDisplay)
-                .filter(display -> display.getType().isAssignableFrom(getTriggerEntityType()))
+                .filter(display -> matchesType(display.getType()))
                 .map(display -> (TipDisplay<T>) display)
                 .collect(Collectors.toSet()));
     }

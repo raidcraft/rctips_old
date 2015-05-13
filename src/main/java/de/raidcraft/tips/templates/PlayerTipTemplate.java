@@ -12,10 +12,4 @@ public class PlayerTipTemplate extends YamlTipTemplate<Player> {
 
         super(identifier, config);
     }
-
-    @Override
-    public Class<Player> getTriggerEntityType() {
-
-        return Player.class;
-    }
 }

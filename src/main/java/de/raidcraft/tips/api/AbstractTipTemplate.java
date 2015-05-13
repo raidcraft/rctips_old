@@ -42,7 +42,7 @@ public abstract class AbstractTipTemplate<T> implements TipTemplate<T> {
     public boolean processTrigger(T entity) {
 
         if (!isEnabled()) return false;
-        if (getRequirements(getTriggerEntityType()).stream().allMatch(requirement -> requirement.test(entity))) {
+        if (getRequirements(getType().get()).stream().allMatch(requirement -> requirement.test(entity))) {
             // the tip display tracks if it already displayed so we dont need to wory
             display(entity);
         }

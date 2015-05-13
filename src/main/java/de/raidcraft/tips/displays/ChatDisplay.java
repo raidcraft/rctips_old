@@ -16,12 +16,6 @@ public class ChatDisplay extends AbstractTipDisplay<Player> {
     }
 
     @Override
-    public Class<Player> getType() {
-
-        return Player.class;
-    }
-
-    @Override
     public void display(TipTemplate tip, Player entity) {
 
         String[] lines = tip.getDescription().split("\\|");
