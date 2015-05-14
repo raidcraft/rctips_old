@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * @author mdoering
  */
-public interface TipTemplate<T> extends TriggerListener<T>, RequirementHolder<T> {
+public interface TipTemplate<T> extends TriggerListener<T>, RequirementHolder {
 
     public String getIdentifier();
 
