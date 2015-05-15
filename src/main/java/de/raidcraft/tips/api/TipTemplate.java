@@ -10,21 +10,21 @@ import java.util.Collection;
  */
 public interface TipTemplate<T> extends TriggerListener<T>, RequirementHolder {
 
-    public String getIdentifier();
+    String getIdentifier();
 
-    public String getName();
+    String getName();
 
-    public String getDescription();
+    String getDescription();
 
-    public boolean isEnabled();
+    boolean isEnabled();
 
-    public boolean isRepeating();
+    boolean isRepeating();
 
-    public long getCooldown();
+    long getCooldown();
 
-    public Collection<TipDisplay<T>> getDisplays();
+    Collection<TipDisplay<T>> getDisplays();
 
-    public Tip<T> display(T entity);
+    Tip<T> display(T entity);
 
-    public Tip<T> createTip(T entity);
+    Tip<T> createTip(T entity);
 }

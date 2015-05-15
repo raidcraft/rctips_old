@@ -2,8 +2,8 @@ package de.raidcraft.tips.templates;
 
 import de.raidcraft.RaidCraft;
 import de.raidcraft.api.action.requirement.RequirementException;
-import de.raidcraft.api.action.requirement.RequirementFactory;
-import de.raidcraft.api.action.trigger.TriggerManager;
+import de.raidcraft.api.action.RequirementFactory;
+import de.raidcraft.api.action.TriggerManager;
 import de.raidcraft.tips.TipManager;
 import de.raidcraft.tips.api.AbstractTipTemplate;
 import de.raidcraft.tips.api.Tip;

@@ -7,7 +7,7 @@ import de.raidcraft.api.action.GenericType;
  */
 public interface TipDisplay<T> extends GenericType<T> {
 
-    public String getName();
+    String getName();
 
-    public void display(TipTemplate tip, T entity);
+    void display(TipTemplate tip, T entity);
 }

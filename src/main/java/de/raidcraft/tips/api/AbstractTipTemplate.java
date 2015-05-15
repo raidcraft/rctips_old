@@ -1,7 +1,7 @@
 package de.raidcraft.tips.api;
 
 import de.raidcraft.api.action.requirement.Requirement;
-import de.raidcraft.api.action.trigger.TriggerFactory;
+import de.raidcraft.api.action.TriggerFactory;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -5,17 +5,17 @@ package de.raidcraft.tips.api;
  */
 public interface Tip<T> {
 
-    public TipTemplate getTemplate();
+    TipTemplate getTemplate();
 
-    public T getEntity();
+    T getEntity();
 
-    public boolean isEntityEnabled();
+    boolean isEntityEnabled();
 
-    public boolean isDisplayed();
+    boolean isDisplayed();
 
-    public boolean isOnCooldown();
+    boolean isOnCooldown();
 
-    public void display();
+    void display();
 
-    public void save();
+    void save();
 }
