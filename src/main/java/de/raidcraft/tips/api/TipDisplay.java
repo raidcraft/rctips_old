@@ -1,11 +1,9 @@
 package de.raidcraft.tips.api;
 
-import de.raidcraft.api.action.GenericType;
-
 /**
  * @author mdoering
  */
-public interface TipDisplay<T> extends GenericType<T> {
+public interface TipDisplay<T> {
 
     String getName();
 
