@@ -23,13 +23,18 @@ public abstract class AbstractTipTemplate<T> implements TipTemplate<T> {
     private String description;
     private boolean enabled;
     private long cooldown;
-    private Collection<Requirement<?>> requirements = new ArrayList<>();
+    private Collection<Requirement<T>> requirements = new ArrayList<>();
     private Collection<TriggerFactory> trigger = new ArrayList<>();
     private Collection<TipDisplay<T>> displays = new ArrayList<>();
 
     public AbstractTipTemplate(String identifier) {
 
         this.identifier = identifier;
+    }
+
+    public Collection<Requirement<?>> getRequirements() {
+
+        return new ArrayList<>(requirements);
     }
 
     @Override
@@ -42,7 +47,7 @@ public abstract class AbstractTipTemplate<T> implements TipTemplate<T> {
     public boolean processTrigger(T entity) {
 
         if (!isEnabled()) return false;
-        if (getRequirements(getType().get()).stream().allMatch(requirement -> requirement.test(entity))) {
+        if (requirements.stream().allMatch(requirement -> requirement.test(entity))) {
             // the tip display tracks if it already displayed so we dont need to wory
             display(entity);
         }

@@ -11,9 +11,11 @@ import lombok.EqualsAndHashCode;
 public abstract class AbstractTipDisplay<T> implements TipDisplay<T> {
 
     private final String name;
+    private final Class<T> type;
 
-    public AbstractTipDisplay(String name) {
+    public AbstractTipDisplay(String name, Class<T> type) {
 
         this.name = name;
+        this.type = type;
     }
 }

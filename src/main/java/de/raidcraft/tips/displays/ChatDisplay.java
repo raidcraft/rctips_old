@@ -12,7 +12,7 @@ public class ChatDisplay extends AbstractTipDisplay<Player> {
 
     public ChatDisplay() {
 
-        super("chat");
+        super("chat", Player.class);
     }
 
     @Override

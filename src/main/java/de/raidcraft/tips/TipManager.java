@@ -151,7 +151,7 @@ public final class TipManager implements Component {
     public <T> List<TipDisplay<T>> getTipDisplays(@NonNull T entity) {
 
         return tipDisplays.values().stream()
-                .filter(display -> display.matchesType(entity))
+                .filter(display -> display.getType().isAssignableFrom(entity.getClass()))
                 .map(display -> (TipDisplay<T>) display)
                 .collect(Collectors.toList());
     }

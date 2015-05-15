@@ -1,9 +1,7 @@
 package de.raidcraft.tips.templates;
 
 import de.raidcraft.RaidCraft;
-import de.raidcraft.api.action.requirement.RequirementException;
-import de.raidcraft.api.action.RequirementFactory;
-import de.raidcraft.api.action.TriggerManager;
+import de.raidcraft.api.action.ActionAPI;
 import de.raidcraft.tips.TipManager;
 import de.raidcraft.tips.api.AbstractTipTemplate;
 import de.raidcraft.tips.api.Tip;
@@ -26,18 +24,14 @@ public abstract class YamlTipTemplate<T> extends AbstractTipTemplate<T> {
         setDescription(config.getString("desc", "undefined"));
         setEnabled(config.getBoolean("enabled", true));
         setCooldown(TimeUtil.secondsToMillis(config.getDouble("cooldown", 0.0)));
-        try {
-            setRequirements(RequirementFactory.getInstance().createRequirements(getListenerId(), config.getConfigurationSection("requirements")));
-        } catch (RequirementException e) {
-            RaidCraft.LOGGER.warning(e.getMessage() + " in " + getIdentifier());
-        }
-        setTrigger(TriggerManager.getInstance().createTriggerFactories(config.getConfigurationSection("trigger")));
+        setRequirements(ActionAPI.createRequirements(getListenerId(), config.getConfigurationSection("requirements"), getTriggerEntityType()));
+        setTrigger(ActionAPI.createTrigger(config.getConfigurationSection("trigger")));
         TipManager manager = RaidCraft.getComponent(TipManager.class);
         setDisplays(config.getStringList("displays").stream()
                 .map(manager::getTipDisplay)
-                .filter(display -> matchesType(display.getType()))
+                .filter(display -> getTriggerEntityType().isAssignableFrom(display.getType()))
                 .map(display -> (TipDisplay<T>) display)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toList()));
     }
 
     @Override
