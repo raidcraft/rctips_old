@@ -1,6 +1,5 @@
 package de.raidcraft.tips;
 
-import com.avaje.ebean.EbeanServer;
 import de.raidcraft.RaidCraft;
 import de.raidcraft.api.Component;
 import de.raidcraft.api.config.SimpleConfiguration;
@@ -12,6 +11,7 @@ import de.raidcraft.tips.tables.TTipPlayer;
 import de.raidcraft.tips.templates.PlayerTipTemplate;
 import de.raidcraft.tips.tips.PlayerTip;
 import de.raidcraft.util.CaseInsensitiveMap;
+import io.ebean.EbeanServer;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
 
@@ -94,7 +94,7 @@ public final class TipManager implements Component {
 
         EbeanServer database = plugin.getDatabase();
         TTipPlayer player = database.find(TTipPlayer.class).where()
-                .eq("uuid", entity.getUniqueId()).findUnique();
+                .eq("uuid", entity.getUniqueId()).findOne();
         if (player == null) {
             player = new TTipPlayer();
             player.setUuid(entity.getUniqueId());

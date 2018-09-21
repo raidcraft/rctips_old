@@ -1,6 +1,5 @@
 package de.raidcraft.tips.tips;
 
-import com.avaje.ebean.EbeanServer;
 import de.raidcraft.RaidCraft;
 import de.raidcraft.api.action.requirement.Requirement;
 import de.raidcraft.tips.TipManager;
@@ -9,6 +8,7 @@ import de.raidcraft.tips.api.AbstractTip;
 import de.raidcraft.tips.api.TipTemplate;
 import de.raidcraft.tips.tables.TPlayerTip;
 import de.raidcraft.tips.tables.TTipPlayer;
+import io.ebean.EbeanServer;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
 
