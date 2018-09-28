@@ -92,7 +92,7 @@ public final class TipManager implements Component {
 
     public TTipPlayer loadDatabasePlayer(Player entity) {
 
-        EbeanServer database = plugin.getDatabase();
+        EbeanServer database = plugin.getRcDatabase();
         TTipPlayer player = database.find(TTipPlayer.class).where()
                 .eq("uuid", entity.getUniqueId()).findOne();
         if (player == null) {

@@ -36,7 +36,7 @@ public class PlayerTip extends AbstractTip<Player> {
     @Override
     public void save() {
 
-        EbeanServer database = RaidCraft.getComponent(TipsPlugin.class).getDatabase();
+        EbeanServer database = RaidCraft.getComponent(TipsPlugin.class).getRcDatabase();
         TTipPlayer player = RaidCraft.getComponent(TipManager.class).loadDatabasePlayer(getEntity());
         TPlayerTip tip = player.getTips().stream()
                 .filter(entry -> entry.getTemplate().equalsIgnoreCase(getTemplate().getIdentifier()))

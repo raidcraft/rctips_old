@@ -28,7 +28,7 @@ public class PlayerCommands {
 
         TTipPlayer player = plugin.getTipManager().loadDatabasePlayer((Player) sender);
         player.setEnabled(!player.isEnabled());
-        plugin.getDatabase().update(player);
+        plugin.getRcDatabase().update(player);
         if (player.isEnabled()) {
             plugin.getTranslationProvider().msg(sender, "tips.enabled", ChatColor.GREEN + "Dir werden nun Tips angezeigt.");
         } else {
