@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="rc_tips_player_tips" pkName="pk_rc_tips_player_tips">
+            <column name="id" type="integer" primaryKey="true"/>
+            <column name="player_id" type="integer" references="rc_tips_players.id"
+                    foreignKeyName="fk_rc_tips_player_tips_player_id"
+                    foreignKeyIndex="ix_rc_tips_player_tips_player_id"/>
+            <column name="template" type="varchar"/>
+            <column name="displayed" type="timestamp"/>
+        </createTable>
+        <createTable name="rc_tips_players" pkName="pk_rc_tips_players">
+            <column name="id" type="integer" primaryKey="true"/>
+            <column name="uuid" type="uuid"/>
+            <column name="player" type="varchar"/>
+            <column name="enabled" type="boolean" defaultValue="false" notnull="true"/>
+        </createTable>
+    </changeSet>
+</migration>

@@ -3,12 +3,7 @@ package de.raidcraft.tips.tables;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -17,7 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Table(name = "tips_player_tips")
+@Table(name = "rc_tips_player_tips")
 public class TPlayerTip {
 
     @Id
