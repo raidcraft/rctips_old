@@ -2,7 +2,7 @@ package de.raidcraft.tips.api;
 
 import de.raidcraft.api.action.requirement.Requirement;
 import de.raidcraft.api.action.TriggerFactory;
-import de.raidcraft.api.action.trigger.Trigger;
+import de.raidcraft.api.action.trigger.TriggerListenerConfigWrapper;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,7 +45,7 @@ public abstract class AbstractTipTemplate<T> implements TipTemplate<T> {
     }
 
     @Override
-    public boolean processTrigger(T entity, Trigger trigger) {
+    public boolean processTrigger(T entity, TriggerListenerConfigWrapper trigger) {
 
         if (!isEnabled()) return false;
         if (requirements.stream().allMatch(requirement -> requirement.test(entity))) {
